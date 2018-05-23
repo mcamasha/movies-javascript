@@ -1,0 +1,77 @@
+@media only screen and (min-width: 985px) {
+  .mandatory-1,
+  .mandatory-2,
+  .content {
+    padding: 2.3em;
+  }
+}
+
+select {
+  width: 18%;
+  margin-right: 3em;
+}
+
+button:hover {
+  box-shadow: 0 0 4px rgba(3, 3, 3, 0.8);
+  opacity: 0.9;
+}
+
+.input-append {
+  border-right: 0;
+  box-shadow: 0 0 0;
+  border-color: #ccc;
+}
+
+.table,
+.form-inline,
+.paginator {
+  /*   width: 100%; */
+  /*   margin: auto; */
+  text-align: center;
+}
+
+.input-append {
+  float: right;
+}
+
+.input-append input {
+  border-radius: 8px 0 0 8px;
+  height: initial;
+}
+
+.user-photo {
+  max-height: 58px;
+  width: auto;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.table td, th {
+  text-align: center;
+}
+
+.table th {
+  text-align: center;
+}
+
+.table {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.nav {
+  padding: 10px;
+}
+
+.user-info {
+  margin-top: 0px;
+  padding-top: 7px;
+  padding-bottom: 0px;
+  font-size: 17px;
+}
+
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}

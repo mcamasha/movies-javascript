@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Movie</title>
+
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/my-movies.css">
+  <script type="text/javascript" src="index.js"></script>
+  <script data-main="index" src="require.js"></script>
+  
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <ul class="nav">
+        <li class="active" onclick="openSearch()" id="linkSearch"><a>Search</a></li>
+        <li onclick="openMyMovies()" id="linkMyMovie"><a>My Movies</a></li>
+      </ul>
+      <div class="navbar-text pull-right user-login">
+        John Doe
+        <img class="user-photo img-circle" alt="avatar" src="https://info-hit.ru/upload/resize_cache/iblock/695/50_50_2/khokhlov_sergey.jpg" />
+      </div>
+    </div>
+  </div>
+
+  <div class="mandatory-1"></div>
+  <div class="container container-fluid" id="main">
+
+  </div>
+
+  <footer class="container-fluid text-center">
+    <p>&copy; Copyright 2018</p>
+  </footer>
+  <script>
+    window.onload = openSearch();
+  </script>
+</body>
+</html>
