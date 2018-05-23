@@ -1,0 +1,131 @@
+@media only screen and (min-width: 985px) {
+  .mandatory-1,
+  .mandatory-2,
+  .content {
+    padding: 2.7em;
+    /* padding-top: 3em; */
+  }
+}
+
+.user-photo {
+  max-height: 58px;
+  width: auto;
+  border-radius: 50%;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.nav {
+  padding: 10px;
+  margin-bottom: 0px;
+}
+
+select {
+  width: 18%;
+  margin-right: 3em;
+}
+
+.table-movies td {
+  text-align: center;
+}
+
+.table-movies th {
+  text-align: center;
+}
+
+.table-movies {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+button:hover {
+  box-shadow: 0 0 4px rgba(3, 3, 3, 0.8);
+  opacity: 0.9;
+}
+
+.input-append {
+  float: right;
+}
+
+.input-append input {
+  border-radius: 8px 0 0 8px;
+  height: initial;
+}
+
+.table-movies,
+.form-inline,
+.paginator {
+  text-align: center;
+}
+
+.user-login {
+  margin-top: 0px;
+  padding-top: 7px;
+  padding-bottom: 0px;
+  font-size: 17px;
+}
+
+.caption-text {
+  width: auto;
+}
+
+.filter a {
+  padding: 5px;
+  font-size: 18px;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.img-movie {
+  background-color: red;
+}
+
+.table-each-movie {
+  border: 1px dashed;
+  margin-top: 40px;
+  font-size: 15px;
+  background-color: #e2e7ea;
+}
+
+.checked {
+  color: orange;
+}
+
+table td, th {
+  padding: 20px;
+}
+
+.table-each-movie a {
+  text-decoration: underline;
+}
+
+.table-each-movie td p {
+  text-indent: 1.5em;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.datetime {
+  margin-top: 10px;
+  margin-right: 10%;
+}
+
+.rating-star {
+  margin-right: 10%;
+}
+
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+  /* margin-top: 20px; */
+}
+
+/* .caption {
+  margin-top: 30px;
+} */

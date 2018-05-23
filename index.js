@@ -425,8 +425,6 @@ function openSearch() {
     colomn1.classList.add("col-md-1", "content"); 
     var colomn10 = document.createElement("div");
     colomn10.classList.add("col-md-10", "content", "main"); 
-    var rowForm = document.createElement("div");
-    rowForm.classList.add("row");
     var form = document.createElement("form");
     form.classList.add("form-inline");
     form.innerHTML ='<div class="selects" align="left"><select name="format"><option selected="selected" disabled>Format</option><option value="Movie">Movie</option><option value="TVserials">TV Serials</option><option value="short">Short</option></select><select name="genre"><option selected="selected" disabled>Genre</option><option value="Movie">Horror</option><option value="TVserials">Comedy</option><option value="short">Triller</option></select><select name="year"><option selected="selected" disabled>Year</option><option>2011-2018</option><option>2001-2010</option><option>1991-2000</option><option>1981-1990</option><option>1971-1980</option><option>1961-1970</option></select><div class="input-append"><input type="text" class="span2" placeholder="Search movie..."> <button type="submit" class="btn">Search</button></div> </div>';
@@ -434,8 +432,7 @@ function openSearch() {
     mainDiv.appendChild(row);
     row.appendChild(colomn1);
     row.appendChild(colomn10);
-    colomn10.appendChild(rowForm);
-    rowForm.appendChild(form);
+    colomn10.appendChild(form);
 
     var rowTable = document.createElement("row");
     var table = document.createElement("table");
@@ -543,6 +540,9 @@ function openSearch() {
     document.getElementById("2").addEventListener('click', function(){loadTable(6)}, false);
     document.getElementById("3").addEventListener('click', function(){loadTable(11)}, false);
     document.getElementById("4").addEventListener('click', function(){loadTable(16)}, false);
+
+    var footer = document.getElementById("footer");
+    footer.style.marginTop = "0px";
 }
 
 function openMyMovies() {
@@ -653,4 +653,6 @@ function openMyMovies() {
         overview.appendChild(linkDetails);
     }
 
+    var footer = document.getElementById("footer");
+    footer.style.marginTop = "30px";
 }

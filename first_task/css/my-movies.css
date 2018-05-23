@@ -18,45 +18,6 @@
   padding: 10px;
 }
 
-select {
-  width: 18%;
-  margin-right: 3em;
-}
-
-.table-movies td {
-  text-align: center;
-}
-
-.table-movies th {
-  text-align: center;
-}
-
-.table-movies {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-button:hover {
-  box-shadow: 0 0 4px rgba(3, 3, 3, 0.8);
-  opacity: 0.9;
-}
-
-.input-append {
-  float: right;
-}
-
-.input-append input {
-  border-radius: 8px 0 0 8px;
-  height: initial;
-}
-
-.table-movies,
-.form-inline,
-.paginator {
-  text-align: center;
-}
-
 .user-login {
   margin-top: 0px;
   padding-top: 7px;
@@ -70,7 +31,7 @@ button:hover {
 
 .filter a {
   padding: 5px;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .vcenter {
@@ -83,7 +44,7 @@ button:hover {
   background-color: red;
 }
 
-.table-each-movie {
+table {
   border: 1px dashed;
   margin-top: 40px;
   font-size: 15px;
@@ -94,15 +55,15 @@ button:hover {
   color: orange;
 }
 
-table td, th {
+table td {
   padding: 20px;
 }
 
-.table-each-movie a {
+table a {
   text-decoration: underline;
 }
 
-.table-each-movie td p {
+table td p {
   text-indent: 1.5em;
   line-height: 1.5;
   text-align: justify;
@@ -123,4 +84,3 @@ footer {
   padding: 15px;
   margin-top: 40px;
 }
-
