@@ -406,6 +406,8 @@ var moviesObject = {
 
 function openSearch() {
     var pageCurrent = 1;
+    var quantityMovies = moviesObject.movies.length;
+    var quantityMoviesOnPage = 5;
 
     var linkMyMovie = document.getElementById("linkMyMovie");
     var linkSearch = document.getElementById("linkSearch");
@@ -445,51 +447,55 @@ function openSearch() {
     rowTable.appendChild(table);
     table.appendChild(thead);
     table.appendChild(tbody);
-    loadTable(1, 1);
+    loadTable(1);
 
-    function loadTable(firstMovie, page) {
-        var length;
-        while (tbody.firstChild) {
-            tbody.removeChild(tbody.firstChild);
+    function loadTable(page) {      
+      var length;
+      while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+      }
+
+      var firstMovie = (page - 1) * quantityMoviesOnPage + 1
+
+      if(quantityMovies > (firstMovie + 5)) 
+        length = 5; 
+      else
+        length = quantityMovies - firstMovie;
+
+      console.log("first movie = " + firstMovie);
+      console.log("page " + page);
+      for(var i = firstMovie; i < (firstMovie+length); i++) {
+        var lastTr = tr;
+        var tr = document.createElement('tr');
+        var tdPoster = document.createElement('td');
+        var poster = document.createElement('img');
+        poster.setAttribute('src', moviesObject.movies[i].poster_path);
+        poster.setAttribute('alt', 'img');
+        tdPoster.appendChild(poster);
+        var tdTitle = document.createElement('td');
+        tdTitle.innerHTML = moviesObject.movies[i].title;
+        var tdFormat = document.createElement('td');
+        tdFormat.innerHTML = moviesObject.movies[i].video;
+        var tdGenre = document.createElement('td');
+        tdGenre.innerHTML = moviesObject.movies[i].genre_ids;
+        var tdYear = document.createElement('td');
+        tdYear.innerHTML = moviesObject.movies[i].release_date.substring(0, 4);
+        var tdRating = document.createElement('td');
+        tdRating.innerHTML = moviesObject.movies[i].vote_average;
+
+        if(i > firstMovie) {
+          tbody.insertBefore(tr, lastTr);
+        } else {
+          tbody.appendChild(tr);
         }
-
-        if(moviesObject.movies.length > (firstMovie + 5)) 
-            length = 5; 
-        else
-            length = moviesObject.movies.length - firstMovie;
-
-        for(var i = firstMovie; i < (firstMovie+length); i++) {
-            var lastTr = tr;
-            var tr = document.createElement('tr');
-            var tdPoster = document.createElement('td');
-            var poster = document.createElement('img');
-            poster.setAttribute('src', moviesObject.movies[i].poster_path);
-            poster.setAttribute('alt', 'img');
-            tdPoster.appendChild(poster);
-            var tdTitle = document.createElement('td');
-            tdTitle.innerHTML = moviesObject.movies[i].title;
-            var tdFormat = document.createElement('td');
-            tdFormat.innerHTML = moviesObject.movies[i].video;
-            var tdGenre = document.createElement('td');
-            tdGenre.innerHTML = moviesObject.movies[i].genre_ids;
-            var tdYear = document.createElement('td');
-            tdYear.innerHTML = moviesObject.movies[i].release_date.substring(0, 4);
-            var tdRating = document.createElement('td');
-            tdRating.innerHTML = moviesObject.movies[i].vote_average;
-
-            if(i > firstMovie) {
-                tbody.insertBefore(tr, lastTr);
-            } else {
-                tbody.appendChild(tr);
-            }
             
-            tr.appendChild(tdPoster);
-            tr.appendChild(tdTitle);
-            tr.appendChild(tdFormat);
-            tr.appendChild(tdGenre);
-            tr.appendChild(tdYear);
-            tr.appendChild(tdRating);
-        }
+        tr.appendChild(tdPoster);
+        tr.appendChild(tdTitle);
+        tr.appendChild(tdFormat);
+        tr.appendChild(tdGenre);
+        tr.appendChild(tdYear);
+        tr.appendChild(tdRating);
+      }
     }
 
     //paginator
@@ -517,7 +523,7 @@ function openSearch() {
         aLink.classList.add("page-link");
         aLink.setAttribute("href", "#");
         aLink.innerHTML = i;
-        liLink.id = i.toString();
+        liLink.addEventListener('click',(function(i) {return function() { loadTable(i); };})(i),false);
 
         ulPaginator.appendChild(liLink);
         liLink.appendChild(aLink);
@@ -534,12 +540,6 @@ function openSearch() {
 
     ulPaginator.appendChild(nextPage);
     nextPage.appendChild(nextLink);
-
-    //клик по номерам страниц
-    document.getElementById("1").addEventListener('click', function(){loadTable(1)}, false);
-    document.getElementById("2").addEventListener('click', function(){loadTable(6)}, false);
-    document.getElementById("3").addEventListener('click', function(){loadTable(11)}, false);
-    document.getElementById("4").addEventListener('click', function(){loadTable(16)}, false);
 
     var footer = document.getElementById("footer");
     footer.style.marginTop = "0px";
@@ -602,13 +602,13 @@ function openMyMovies() {
         var divRatingStar = document.createElement("div");
         divRatingStar.classList.add("rating-star"); 
         var star1 = document.createElement("span");
-        star1.classList.add("fa", "fa-star"); 
+        star1.classList.add("fa", "fa-star");
         var star2 = document.createElement("span");
-        star2.classList.add("fa", "fa-star"); 
+        star2.classList.add("fa", "fa-star");
         var star3 = document.createElement("span");
-        star3.classList.add("fa", "fa-star"); 
+        star3.classList.add("fa", "fa-star");
         var star4 = document.createElement("span");
-        star4.classList.add("fa", "fa-star"); 
+        star4.classList.add("fa", "fa-star");
         var star5 = document.createElement("span");
         star5.classList.add("fa", "fa-star"); 
         var starChecked = document.createElement("span");
