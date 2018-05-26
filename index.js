@@ -14,13 +14,13 @@ const getGenres = () => {
   }
 }
 
-function openSearch() {
-  const movies = [];
-  const genres = [];
-  const addMovies = async () => {
+const movies = [];
+const genres = [];
+const addMovies = async (loadTable) => {
     const genreArray = getGenres()
       .then(response => {
         if (response.data.genres) {
+          genres.length = 0;
           for (var i = 0; i < Object.entries(response.data.genres).length; i++) {
             genres.push(Object.entries(response.data.genres)[i][1]);
           }
@@ -33,6 +33,7 @@ function openSearch() {
       const movieArray = getMovies()
       .then(response => {
         if (response.data.results) {
+          movies.length = 0;
           for (var i = 0; i < Object.entries(response.data.results).length; i++) {
             movies.push(Object.entries(response.data.results)[i][1]);
           }
@@ -49,6 +50,7 @@ function openSearch() {
           }
 
           loadTable(1, movies);
+          
         }
       })
       .catch(error => {
@@ -56,7 +58,7 @@ function openSearch() {
       })
   }
 
-    addMovies();
+function openSearch() {
     var pageCurrent = 1;
     var quantityMoviesOnPage = 5;
 
@@ -99,7 +101,12 @@ function openSearch() {
     table.appendChild(thead);
     table.appendChild(tbody);
 
+    addMovies(loadTable);
+
     function loadTable(page, movies) {   
+
+      console.log(movies);
+
       var length;
       while (tbody.firstChild) {
         tbody.removeChild(tbody.firstChild);
@@ -112,10 +119,7 @@ function openSearch() {
       else
         length = movies.length - firstMovie;
 
-      // console.log("first movie = " + firstMovie);
-      console.log("page " + page);
       for(var i = firstMovie; i < (firstMovie+length); i++) {
-      // for(var i = 0; i < movies.length; i++) {
         var lastTr = tr;
         var tr = document.createElement('tr');
         var tdPoster = document.createElement('td');
@@ -230,7 +234,6 @@ function openSearch() {
 }
 
 function openMyMovies() {
-    
     var linkMyMovie = document.getElementById("linkMyMovie");
     var linkSearch = document.getElementById("linkSearch");
     if(!linkMyMovie.classList.contains("active")) {
@@ -265,7 +268,7 @@ function openMyMovies() {
     rowMovie.appendChild(colomn10xs);
     colomn10xs.appendChild(row);
 
-    for(var i = 0; i < moviesObject.movies.length; i++) {
+    for(var i = 0; i < movies.length; i++) {
         var lastColomn12xs = colomn12xs;
         var colomn12xs = document.createElement("div");
         colomn12xs.classList.add("col-xs-12"); 
@@ -305,10 +308,10 @@ function openMyMovies() {
         var linkDetails = document.createElement("a");
         linkDetails.setAttribute("href", "#");
         linkDetails.innerHTML = "details";
-        poster.setAttribute("src", moviesObject.movies[i].poster_path);
-        titleMovie.innerText = moviesObject.movies[i].title + " (" + moviesObject.movies[i].release_date.substring(0, 4) + ")";
-        dateTime.innerText = moviesObject.movies[i].release_date;
-        overview.innerText = moviesObject.movies[i].overview + " ";
+        poster.setAttribute("src", movies[i].poster_path);
+        titleMovie.innerText = movies[i].title + " (" + movies[i].release_date.substring(0, 4) + ")";
+        dateTime.innerText = movies[i].release_date;
+        overview.innerText = movies[i].overview + " ";
 
         if(i > 0) {
             row.insertBefore(colomn12xs, lastColomn12xs);
