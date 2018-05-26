@@ -49,7 +49,6 @@ function openSearch() {
           }
 
           loadTable(1, movies);
-          loadPaginator(movies);
         }
       })
       .catch(error => {
@@ -114,7 +113,7 @@ function openSearch() {
         length = movies.length - firstMovie;
 
       // console.log("first movie = " + firstMovie);
-      // console.log("page " + page);
+      console.log("page " + page);
       for(var i = firstMovie; i < (firstMovie+length); i++) {
       // for(var i = 0; i < movies.length; i++) {
         var lastTr = tr;
@@ -148,12 +147,42 @@ function openSearch() {
         tr.appendChild(tdYear);
         tr.appendChild(tdRating);
       }
+
+      if(document.getElementById('paginator') == null) {
+        loadPaginator(page, movies);
+      } else {
+        var previous = document.getElementById('previous');
+        var clone = previous.cloneNode();
+        while (previous.firstChild) {
+          clone.appendChild(previous.lastChild);
+        }
+        previous.parentNode.replaceChild(clone, previous);
+        if(page == 1) {
+          document.getElementById('previous').addEventListener('click',(function() {return function() { loadTable(page, movies); };})(),false);
+        } else {
+          document.getElementById('previous').addEventListener('click',(function() {return function() { loadTable(page-1, movies); };})(),false);
+        }
+
+        var next = document.getElementById('next');
+        var clone = next.cloneNode();
+        while (next.firstChild) {
+          clone.appendChild(next.lastChild);
+        }
+        next.parentNode.replaceChild(clone, next);
+        if(page == movies.length / quantityMoviesOnPage) {
+          document.getElementById('next').addEventListener('click',(function() {return function() { loadTable(page, movies); };})(),false);
+        } else {
+          document.getElementById('next').addEventListener('click',(function() {return function() { loadTable(page+1, movies); };})(),false);
+        }
+      }
     }
 
     //paginator
-    function loadPaginator(movies) {
+    function loadPaginator(page, movies) {
+
       var paginator = document.createElement("nav");
       paginator.classList.add("nav");
+      paginator.id = 'paginator';
       var ulPaginator = document.createElement("ul");
       ulPaginator.classList.add("pagination", "pull-right");
       var previousPage = document.createElement("li");
@@ -161,6 +190,7 @@ function openSearch() {
       var previousLink = document.createElement("a");
       previousLink.classList.add("page-link");
       previousLink.setAttribute("href", "#");
+      previousPage.id = "previous";
       previousLink.setAttribute("aria-label", "Previous");
       previousLink.innerHTML = '<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>';
 
@@ -188,7 +218,7 @@ function openSearch() {
       nextLink.classList.add("page-link");
       nextLink.setAttribute("href", "#");
       nextLink.setAttribute("aria-label", "Next");
-      nextLink.id = "next";
+      nextPage.id = "next";
       nextLink.innerHTML = '<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>';
 
       ulPaginator.appendChild(nextPage);
