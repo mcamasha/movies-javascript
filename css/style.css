@@ -90,6 +90,7 @@ button:hover {
   margin-top: 40px;
   font-size: 15px;
   background-color: #e2e7ea;
+  display: block;
 }
 
 .checked {
@@ -123,9 +124,9 @@ footer {
   background-color: #555;
   color: white;
   padding: 15px;
-  /* margin-top: 20px; */
 }
 
-/* .caption {
-  margin-top: 30px;
-} */
+.table-each-movie tr {
+  width: 100%;
+  display: table;
+}

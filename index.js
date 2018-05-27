@@ -17,46 +17,45 @@ const getGenres = () => {
 const movies = [];
 const genres = [];
 const addMovies = async (loadTable) => {
-    const genreArray = getGenres()
-      .then(response => {
-        if (response.data.genres) {
-          genres.length = 0;
-          for (var i = 0; i < Object.entries(response.data.genres).length; i++) {
-            genres.push(Object.entries(response.data.genres)[i][1]);
-          }
-          }
-      })
-      .catch(error => {
-        console.log(error)
-      }) 
+  const genreArray = getGenres()
+    .then(response => {
+      if (response.data.genres) {
+        genres.length = 0;
+        for (var i = 0; i < Object.entries(response.data.genres).length; i++) {
+          genres.push(Object.entries(response.data.genres)[i][1]);
+        }
+        }
+    })
+    .catch(error => {
+      console.log(error)
+    }) 
 
-      const movieArray = getMovies()
-      .then(response => {
-        if (response.data.results) {
-          movies.length = 0;
-          for (var i = 0; i < Object.entries(response.data.results).length; i++) {
-            movies.push(Object.entries(response.data.results)[i][1]);
-          }
-          
-          for (var i = 0; i < movies.length; i++) {
-            for(var j = 0; j < movies[i].genre_ids.length; j++) {
-              for(var k = 0; k < genres.length; k++) {
-                if(genres[k].id == movies[i].genre_ids[j]) {
-                  delete movies[i].genre_ids[j];
-                  movies[i].genre_ids[j] = genres[k].name;
-                }
+  const movieArray = getMovies()
+    .then(response => {
+      if (response.data.results) {
+        movies.length = 0;
+        for (var i = 0; i < Object.entries(response.data.results).length; i++) {
+          movies.push(Object.entries(response.data.results)[i][1]);
+        }
+        
+        for (var i = 0; i < movies.length; i++) {
+          for(var j = 0; j < movies[i].genre_ids.length; j++) {
+            for(var k = 0; k < genres.length; k++) {
+              if(genres[k].id == movies[i].genre_ids[j]) {
+                delete movies[i].genre_ids[j];
+                movies[i].genre_ids[j] = genres[k].name;
               }
             }
           }
-
-          loadTable(1, movies);
-          
         }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
+
+        loadTable(1, movies);
+      }
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
 
 function openSearch() {
     var pageCurrent = 1;
@@ -104,8 +103,6 @@ function openSearch() {
     addMovies(loadTable);
 
     function loadTable(page, movies) {   
-
-      console.log(movies);
 
       var length;
       while (tbody.firstChild) {
@@ -311,7 +308,6 @@ function openMyMovies() {
         poster.setAttribute("src", movies[i].poster_path);
         titleMovie.innerText = movies[i].title + " (" + movies[i].release_date.substring(0, 4) + ")";
         dateTime.innerText = movies[i].release_date;
-        overview.innerText = movies[i].overview + " ";
 
         if(i > 0) {
             row.insertBefore(colomn12xs, lastColomn12xs);
@@ -337,7 +333,11 @@ function openMyMovies() {
         tdRating.appendChild(dateTime);
         trOverview.appendChild(tdColspan3);
         tdColspan3.appendChild(overview);
-        overview.appendChild(linkDetails);
+
+        if(movies[i].overview != "") {
+          overview.innerText = movies[i].overview + " ";
+          overview.appendChild(linkDetails);
+        }
     }
 
     var footer = document.getElementById("footer");
