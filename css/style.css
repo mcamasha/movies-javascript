@@ -44,12 +44,17 @@ button:hover {
   opacity: 0.9;
 }
 
-.input-append {
+.title {
   float: right;
 }
 
 .input-append input {
-  border-radius: 8px 0 0 8px;
+  border-radius: 8px 0px 0px 8px;
+  height: initial;
+}
+
+#yearInput {
+  border-radius: 8px 8px 8px 8px;
   height: initial;
 }
 

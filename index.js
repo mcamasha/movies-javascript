@@ -1,6 +1,21 @@
-const getMovies = () => {
-  try {
-    return axios.get("https://api.themoviedb.org/3/movie/popular?api_key=37662c76ffc19e5cd1b95f37d77155fc&language=ru-RU&page=1");
+const getMovies = (title, year) => {
+  try {    
+    var objParams = {
+      params: {
+        api_key: "37662c76ffc19e5cd1b95f37d77155fc",
+        language: "ru-RU",
+      }
+    }
+
+    if(title != '')
+      objParams.params.query = title;
+    if(year != '')
+      objParams.params.year = year;
+
+    if(title != '' || year != '') {
+      return axios.get('https://api.themoviedb.org/3/search/movie', objParams);
+    } else
+      return axios.get("https://api.themoviedb.org/3/movie/popular?api_key=37662c76ffc19e5cd1b95f37d77155fc&language=ru-RU");
   } catch (error) {
     console.error(error)
   }
@@ -16,7 +31,7 @@ const getGenres = () => {
 
 const movies = [];
 const genres = [];
-const addMovies = async (loadTable) => {
+const loadMovies = async (loadTable, title, year) => {
   const genreArray = getGenres()
     .then(response => {
       if (response.data.genres) {
@@ -30,7 +45,7 @@ const addMovies = async (loadTable) => {
       console.log(error)
     }) 
 
-  const movieArray = getMovies()
+  const movieArray = getMovies(title, year)
     .then(response => {
       if (response.data.results) {
         movies.length = 0;
@@ -55,6 +70,14 @@ const addMovies = async (loadTable) => {
     .catch(error => {
       console.log(error)
     })
+
+    function search() {
+      title = document.getElementById('title').value;
+      year = document.getElementById('yearInput').value;
+      loadMovies(loadTable, title, year);
+    }
+  
+    document.getElementById('btn-search').onclick = search;
 }
 
 function openSearch() {
@@ -81,7 +104,11 @@ function openSearch() {
     colomn10.classList.add("col-md-10", "content", "main"); 
     var form = document.createElement("form");
     form.classList.add("form-inline");
-    form.innerHTML ='<div class="selects" align="left"><select name="format"><option selected="selected" disabled>Format</option><option value="Movie">Movie</option><option value="TVserials">TV Serials</option><option value="short">Short</option></select><select name="genre"><option selected="selected" disabled>Genre</option><option value="Movie">Horror</option><option value="TVserials">Comedy</option><option value="short">Triller</option></select><select name="year"><option selected="selected" disabled>Year</option><option>2011-2018</option><option>2001-2010</option><option>1991-2000</option><option>1981-1990</option><option>1971-1980</option><option>1961-1970</option></select><div class="input-append"><input type="text" class="span2" placeholder="Search movie..."> <button type="submit" class="btn">Search</button></div> </div>';
+    form.innerHTML ='<div class="selects" align="left">' +
+      '<select name="format"> <option selected="selected" disabled>Format</option><option value="Movie">Movie</option><option value="TVserials">TV Serials</option><option value="short">Short</option></select>' +
+      '<select name="genre"><option selected="selected" disabled>Genre</option><option value="Movie">Horror</option><option value="TVserials">Comedy</option><option value="short">Triller</option></select>' +
+      '<div class="input-append year"><input type="text" id="yearInput" class="span2" placeholder="Year"></div>' +      
+      '<div class="input-append title"><input type="text" id="title" class="span2" placeholder="Search movie..."> <button type="submit" id="btn-search" class="btn">Search</button></div> </div>';
 
     mainDiv.appendChild(row);
     row.appendChild(colomn1);
@@ -100,10 +127,9 @@ function openSearch() {
     table.appendChild(thead);
     table.appendChild(tbody);
 
-    addMovies(loadTable);
+    loadMovies(loadTable, "", "");
 
     function loadTable(page, movies) {   
-
       var length;
       while (tbody.firstChild) {
         tbody.removeChild(tbody.firstChild);
